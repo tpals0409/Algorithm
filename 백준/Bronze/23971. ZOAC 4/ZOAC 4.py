@@ -1,7 +1,7 @@
-from math import ceil
-H, W, N, M = map(int, input().split())
+import math
+H, W, N, K = map(int, input().split())
 
-width = ceil(W/(M+1))
-height = ceil(H/(N+1))
+can_y = math.ceil(H/(N+1))
+can_x = math.ceil(W/(K+1))
 
-print(width*height)
+print(can_y*can_x)
