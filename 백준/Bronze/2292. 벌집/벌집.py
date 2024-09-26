@@ -1,12 +1,11 @@
-end = int(input())
-start = 1
-count = 1
+room = int(input())
+answer = 0
+std = 1
 while True:
-    if end == 1:
+    if room <= std:
         break
-    start += (6*count)
-    count += 1
-    if start >= end:
-        break
+    else:
+        answer += 1
+        std = std + (6 * answer)
 
-print(count)
+print(answer+1)
