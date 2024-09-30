@@ -1,23 +1,21 @@
-import sys
-input = sys.stdin.readline
+default, teo_score, rank_length = map(int, input().split())
+rank = [-1]*rank_length
+if default > 0:
+    tmp = list(map(int, input().split()))
+    for i in range(default):
+        rank[i] = tmp[i]
 
-N, tesu_score, max_rank = map(int, input().split())
+if len(rank) < rank_length:
+    for i in range(rank_length-len(rank)):
+        rank.append(0)
 
-ranking = list(map(int, input().split()))
-
-for i in range(max_rank-N):
-    ranking.append(-1)
-
-start = 1
-
-for j in range(max_rank):
-    if ranking[j] > tesu_score:
-        start += 1
-    if j == max_rank-1:
-        if tesu_score == ranking[j]:
-            start = max_rank+1
-
-if start > max_rank:
+if teo_score <= rank[-1]:
     print(-1)
 else:
-    print(start)
+    teo_rank = 0
+    for score in rank:
+        if score > teo_score:
+            teo_rank += 1
+        else:
+            break
+    print(teo_rank+1)
