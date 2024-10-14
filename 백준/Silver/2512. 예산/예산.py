@@ -1,23 +1,19 @@
-from collections import deque
-num = int(input())
-costs = list(map(int, input().split()))
-costs = deque(sorted(costs))
-total_money = int(input())
-per_money = total_money//len(costs)
+N = int(input())
+buget = list(map(int, input().split()))
+buget = sorted(buget)
+total_buget = int(input())
 
-answer = []
-while True:
-    if costs[0] <= per_money:
-        city = costs.popleft()
-        total_money -= city
-        answer.append(city)
-        if len(costs) == 0:
-            break
-        per_money = total_money//len(costs)
+start = 0
+end = max(buget)
+mid = 0
+
+while start <= end:
+    mid = (start + end) // 2
+    sum_buget = sum(min(b, mid) for b in buget)
+
+    if sum_buget > total_buget:
+        end = mid - 1
     else:
-        break
+        start = mid + 1
 
-if len(answer) == num:
-    print(max(answer))
-else:
-    print(per_money)
+print(end)
