@@ -1,3 +1,6 @@
+from sys import stdin
+input = stdin.readline
+
 N, M = map(int, input().split())
 matrix = [[0 for _ in range(N+1)] for a in range(N+1)]
 for i in range(1, N+1):
