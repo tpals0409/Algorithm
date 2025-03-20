@@ -1,22 +1,13 @@
 import sys
 input = sys.stdin.readline
-
 N = int(input())
-schedule = [0]*N
-for i in range(N):
-    schedule[i] = list(map(int, input().split()))
+schedule = [list(map(int, input().split())) for _ in range(N)]
+dp = [0 for _ in range(N+1)]
 
-answer = []
-def make_schedule(schedule, cost, day):
-    if day == N:
-        answer.append(cost)
-        return
+for i in range(N-1, -1, -1):
+    if (schedule[i][0]+i) > N:
+        dp[i] = dp[i+1]
     else:
-        make_schedule(schedule, cost, day+1)
-        if day+schedule[day][0] <= N:
-            make_schedule(schedule, cost+schedule[day][1], day+schedule[day][0])
-        else:
-            make_schedule(schedule, cost, N)
+        dp[i] = max(dp[i+schedule[i][0]]+schedule[i][1], dp[i+1])
 
-make_schedule(schedule, 0, 0)
-print(max(answer))
+print(dp[0])
