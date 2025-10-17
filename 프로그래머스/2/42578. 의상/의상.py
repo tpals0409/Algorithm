@@ -1,11 +1,13 @@
+from collections import defaultdict
 def solution(clothes):
+    kind = defaultdict(int)
+    for clothe, category in clothes:
+        kind[category] += 1
+    
     answer = 1
-    comb = dict()
-    for what, kind in clothes:
-        if kind in comb:
-            comb[kind] += 1
-        else:
-            comb[kind] = 1
-    for i in comb:
-        answer *= (comb[i]+1)
-    return answer-1
+    
+    for i in kind.keys():
+        answer *= (kind[i]+1)
+    
+    answer -= 1
+    return answer
