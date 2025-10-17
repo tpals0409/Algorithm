@@ -1,29 +1,26 @@
+from collections import defaultdict
 def solution(genres, plays):
     answer = []
-    songs = []
+    gen_dict = defaultdict(list)
     for i in range(len(genres)):
-        songs.append([plays[i], genres[i], i])
+        gen_dict[genres[i]].append([plays[i], i])
     
-    dict_gen = dict()
-    divid_gen = dict()
+    sum_gen = []
+    for gen in gen_dict:
+        total = 0
+        for x1, x2 in gen_dict[gen]:
+            total += x1
+        sum_gen.append([gen, total])
     
-    for num, gen, i in songs:
-        if gen in dict_gen:
-            dict_gen[gen] += num
-            divid_gen[gen].append([num, i])
-        else:
-            dict_gen[gen] = num
-            divid_gen[gen] = [[num, i]]
-    many_gen = sorted(dict_gen, key=dict_gen.get, reverse=True)
-    
-    for gen in divid_gen.keys():
-        divid_gen[gen] = sorted(divid_gen[gen], key=lambda x: (-x[0], x[1]))
-        
-    for gen in many_gen:
+    sorted_gen = sorted(sum_gen, key = lambda x: -x[-1])
+
+    for gen, total in sorted_gen:
+        tmp = gen_dict[gen]
+        tmp = sorted(tmp, key = lambda x: (-x[0], x[1]))
         counter = 0
-        for num, idx in divid_gen[gen]:
+        for x0, x1 in tmp:
             counter += 1
-            answer.append(idx)
-            if counter == 2:
+            if counter > 2:
                 break
+            answer.append(x1)
     return answer
